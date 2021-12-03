@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "data_engineering_1"
+version = "0.1.0"
+description = "Sentiment analysis application, given a piece of text, it repplies with the sentiment analysis (positive, negative, neutral). Using Flask for implementation and docker for deployement."
+authors = ["Chloe CARAYON <chloe.carayon@efrei.net> - Cecile SPATZ <cecile.spatz@efrei.net>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+Flask = "^2.0.2"
+
+[tool.poetry.dev-dependencies]
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
