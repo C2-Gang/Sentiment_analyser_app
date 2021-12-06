@@ -23,6 +23,9 @@ if issues, delete poetry.lock and re run the command above.
 make check
 ```
 
+- Jira as project management tool
+https://cecilespatz.atlassian.net/jira/software/projects/DEP1/boards/1
+
 ###  Classical ML project
 - Run project
 ``` 
