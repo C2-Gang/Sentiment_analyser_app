@@ -1,0 +1,22 @@
+<html>
+  <head> 
+    <link rel="stylesheet" href="form.css" type="text/css"/> 
+  </head> 
+  <body>
+    <form action = "/handle" method = "get">
+      <div class="form">
+        <div class="title">Welcome to the sentiment analysis application</div>
+        <div class="subtitle">Let's enter a piece of text. We will tell you if it is positive, negative, or neutral.</div>
+        <div class="input">
+          <input id="piecetext" class="input" type="text" name = "text" placeholder=" "/>
+          <div class="cut"></div>
+          <label for="piecetext" class="placeholder">Your text</label>
+        </div>
+        <button type="submit" class="submit" value = "submit">submit</button>
+        <div class="output">
+          <output name="result" class="output" value = "result">Your sentence is ...</output>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
