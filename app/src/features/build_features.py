@@ -21,8 +21,10 @@ def clean_html(text):
 def preprocessing(text):
     text_clear = clean_html(text)
     sents = nltk.sent_tokenize(text_clear)
+    owned_stopwords = ['``', ' ', '']
+    owned_stopwords.extend(stopwords.words("english"))
     words = [word_tokenize(s.lower()) for s in sents]
-    sentences = [[e for e in word if not e in stopwords.words("english")] for word in words]
+    sentences = [[e for e in word if not e in owned_stopwords] for word in words]
     return sentences
 
 

@@ -8,6 +8,9 @@ from src.utils import directory_path, unzip_file
 def authenticate_kaggle_api():
     """This function is used for
     Kaggle API authentication.
+
+    :return: Kaggle API
+    :rtype:
     """
     api = KaggleApi()
     api.authenticate()
@@ -24,11 +27,18 @@ def get_raw_kaggle(name: str, path_zip_file: str, path_csv_file: str):
     :type file: str
     :param path_file: path defined to store the .zip
     :type path_file: str
+    :return: value to know if dataset has been successfully created
+    :rtype: boolean
     """
-    api = authenticate_kaggle_api()
-    api.dataset_download_file("lakshmi25npathi/imdb-dataset-of-50k-movie-reviews", 'IMDB Dataset.csv', path_zip_file)
-    unzip_file(f"{path_zip_file}/{name}", f"{path_csv_file}")
-    print("done")
+    try:
+        api = authenticate_kaggle_api()
+        api.dataset_download_file("lakshmi25npathi/imdb-dataset-of-50k-movie-reviews", 'IMDB Dataset.csv', path_zip_file)
+        unzip_file(f"{path_zip_file}/{name}", f"{path_csv_file}")
+        print('done')
+        return True
+    except Exception:
+        print("Dataset not found.")
+        return False
 
 def generate_raw():
     """This function generates the csv dataset.
