@@ -15,8 +15,9 @@ def home():
 
 @app.route('/handle',methods=['GET'])
 def handle():
-    review = str(request.args["text"])
+    review = str(request.args.get("piecetext"))
     sentiment = predict(review, model)
+
     return jsonify(sentiment)
 
 

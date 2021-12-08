@@ -4,6 +4,7 @@ from src.models.train_model import evaluate_models
 from src.models.predict_model import predict
 
 if __name__ == "__main__":
+    pass
     #generate_raw()
     #do_preprocessing()
     #evaluate_models()

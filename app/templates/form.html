@@ -1,41 +1,52 @@
 <html>
   <head> 
     <link rel="stylesheet" href= "{{ url_for('static',filename='styles/form.css') }}" type="text/css "/>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
   </head>
   <body>
-    <form action = "/handle" method = "get">
+    <div name="form" >
       <div class="form">
         <div class="title">Welcome to the sentiment analysis application</div>
         <div class="subtitle">Let's enter a piece of text. We will tell you if it is positive, negative, or neutral.</div>
         <div class="input">
-          <input id="piecetext" class="input" type="text" name = "text" placeholder=" "/>
+          <input id="piecetext" class="input" type="text" placeholder=" " value="" name="piecetext"/>
           <div class="cut"></div>
           <label for="piecetext" class="placeholder">Your text</label>
         </div>
         <button type="submit" class="submit" value = "submit" id="button">submit</button>
-        <div class="output">
-          <output name="result" class="output" value = "result">Your sentence is ...</output>
+        <div class="output" id="output_sentiment">
+          {{ suggestion }}<br>
+
         </div>
       </div>
-    </form>
+    </div>
   </body>
   <script type="text/javascript">
-  $(document).ready(function() {
-    $(".button").click(function(event){
-        var text = request.args["text"]
-        console.log(text)
-    });
-  var button = document.getElementById("button")
-  var i = 10
-  console.log(i)
-  $button.click(function(event){
-  var text = request.args["text"]
-  console.log(text)
-  console.log("Blabla")
-  print(text)
-  })
-});
+  $(document).ready(function(){
+    var button = document.getElementById("button")
+    $(button).on('click',function(event){
+      $("#output_sentiment").html("");
+      var text = document.getElementById("piecetext").value
+      $.ajax({
+        url: "/handle",
+        type: "get",
+        data: {jsdata: text},
+        success: function(response) {
+          $("#output_sentiment").append(response)
+        },
+        error: function(xhr) {
+          //Do Something to handle error
+        }
+      });
+
+      });
+  });
+
   </script>
 </html>
 
+
+<!-- <output name="result" class="output" value = "Your sentence is ..."></output>-->
 
