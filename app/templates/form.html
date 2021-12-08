@@ -3,7 +3,7 @@
     <link rel="stylesheet" href= "{{ url_for('static',filename='styles/form.css') }}" type="text/css "/>
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
+    <script type="text/javascript" src="{{ url_for('static', filename='javascript/form.js') }}"></script>
   </head>
   <body>
     <div name="form" >
@@ -23,28 +23,6 @@
       </div>
     </div>
   </body>
-  <script type="text/javascript">
-  $(document).ready(function(){
-    var button = document.getElementById("button")
-    $(button).on('click',function(event){
-      $("#output_sentiment").html("");
-      var text = document.getElementById("piecetext").value
-      $.ajax({
-        url: "/handle",
-        type: "get",
-        data: {jsdata: text},
-        success: function(response) {
-          $("#output_sentiment").append(response)
-        },
-        error: function(xhr) {
-          //Do Something to handle error
-        }
-      });
-
-      });
-  });
-
-  </script>
 </html>
 
 
