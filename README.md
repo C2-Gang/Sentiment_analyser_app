@@ -38,6 +38,15 @@ https://cecilespatz.atlassian.net/jira/software/projects/DEP1/boards/1
 make run
 ```
 
+### Flask
+
+- Run project
+```  
+flask run  
+```
+
+### Sphinx
+
 - Sphinx documentation [here](https://github.com/ChloeCarayon/Sentiment_analyser_app/blob/master/docs/build/html/index.html)
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
