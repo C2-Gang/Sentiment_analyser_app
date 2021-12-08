@@ -1,7 +1,7 @@
 <html>
   <head> 
-    <link rel="stylesheet" href="form.css" type="text/css"/> 
-  </head> 
+    <link rel="stylesheet" href= "{{ url_for('static',filename='styles/form.css') }}" type="text/css "/>
+  </head>
   <body>
     <form action = "/handle" method = "get">
       <div class="form">
@@ -12,11 +12,30 @@
           <div class="cut"></div>
           <label for="piecetext" class="placeholder">Your text</label>
         </div>
-        <button type="submit" class="submit" value = "submit">submit</button>
+        <button type="submit" class="submit" value = "submit" id="button">submit</button>
         <div class="output">
           <output name="result" class="output" value = "result">Your sentence is ...</output>
         </div>
       </div>
     </form>
   </body>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $(".button").click(function(event){
+        var text = request.args["text"]
+        console.log(text)
+    });
+  var button = document.getElementById("button")
+  var i = 10
+  console.log(i)
+  $button.click(function(event){
+  var text = request.args["text"]
+  console.log(text)
+  console.log("Blabla")
+  print(text)
+  })
+});
+  </script>
 </html>
+
+
