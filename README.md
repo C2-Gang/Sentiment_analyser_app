@@ -23,9 +23,14 @@ if issues, delete poetry.lock and re run the command above.
 make check
 ```
 
+
 - We work in agile method and using jira.
 One can find our Kanban table at 
 https://cecilespatz.atlassian.net/jira/software/projects/DEP1/boards/1/roadmap?selectedIssue=DEP1-1 
+
+- Jira as project management tool test: 
+https://cecilespatz.atlassian.net/jira/software/projects/DEP1/boards/1
+
 
 ###  Classical ML project
 - Run project
