@@ -7,4 +7,4 @@ if __name__ == "__main__":
     #generate_raw()
     #do_preprocessing()
     #evaluate_models()
-    predict("This movie was horrible, I was very disappointed. Just trash","linearsvc")
+    #predict("This movie was horrible, I was very disappointed. Just trash","linearsvc")
