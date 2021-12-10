@@ -24,34 +24,34 @@ class TestApp(unittest.TestCase):
         response = self.client.get('/')
         assert response.status_code == 200
         html = response.get_data(as_text=True)
-        assert 'name="text"' in html
+        assert 'name="piecetext"' in html
 
     def test_form_user(self):
         response = self.client.get('/handle', data={
             'piecetext': '',
         }, follow_redirects=True)
-        error = {"sentiment": "error null string."}
+        error = "error null string."
         assert json.dumps(error)
 
         response = self.client.get('/handle', data={
-            'piecetext': 'phrase positive',
+            'piecetext': 'I really really like the song Love Story by Taylor Swift',
         }, follow_redirects=True)
-        self.assertEqual(response.status_code, 400)
-        sentiment = {"sentiment": "Positive"}
+        self.assertEqual(response.status_code, 200)
+        sentiment = "positive"
         assert json.dumps(sentiment)
 
         response = self.client.get('/handle', data={
-            'piecetext': 'phrase Negative',
+            'piecetext': 'i want to go to music tonight but i lost my voice.',
         }, follow_redirects=True)
-        self.assertEqual(response.status_code, 400)
-        sentiment = {"sentiment": "Negative"}
+        self.assertEqual(response.status_code, 200)
+        sentiment = "negative"
         assert json.dumps(sentiment)
 
         response = self.client.get('/handle', data={
-            'piecetext': 'phrase neutre',
+            'piecetext': 'I`d rather do the early run..but I am a morning runner',
         }, follow_redirects=True)
-        self.assertEqual(response.status_code, 400)
-        sentiment = {"sentiment": "Neutral"}
+        self.assertEqual(response.status_code, 200)
+        sentiment = "neutral"
         assert json.dumps(sentiment)
 
     def test_request_time(self):

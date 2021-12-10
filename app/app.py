@@ -18,11 +18,7 @@ def home():
 def handle():
     review = str(request.args.get("piecetext"))
     sentiment = predict(review, model)
-    sentiment_result = {
-        "sentiment": sentiment
-    }
-
-    return jsonify(sentiment_result)
+    return jsonify(sentiment)
 
 
 # times
