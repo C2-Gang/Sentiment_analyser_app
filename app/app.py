@@ -11,11 +11,21 @@ model = load_pickle(path)
 
 @app.route('/')
 def home():
+    """This function send data from HTML form to a Python script in Flask
+
+    :return: render_template('form.html')
+    :rtype:
+    """
     return render_template('form.html')
 
 
 @app.route('/handle',methods=['GET'])
 def handle():
+    """This function retrieve the text from the user, apply on it the prediction and return the sentiment.
+
+    :return: jsonify(sentiment)
+    :rtype: json
+    """
     review = str(request.args.get("piecetext"))
     sentiment = predict(review, model)
     return jsonify(sentiment)
