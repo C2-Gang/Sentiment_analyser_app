@@ -1,4 +1,12 @@
 [[package]]
+name = "anyascii"
+version = "0.3.0"
+description = "Unicode to ASCII transliteration"
+category = "main"
+optional = false
+python-versions = ">=3.3"
+
+[[package]]
 name = "beautifulsoup4"
 version = "4.10.0"
 description = "Screen-scraping library"
@@ -53,12 +61,54 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "contractions"
+version = "0.0.58"
+description = "Fixes contractions such as `you're` to you `are`"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+textsearch = ">=0.0.21"
+
+[[package]]
 name = "idna"
 version = "3.3"
 description = "Internationalized Domain Names in Applications (IDNA)"
 category = "main"
 optional = false
 python-versions = ">=3.5"
+
+[[package]]
+name = "imbalanced-learn"
+version = "0.8.1"
+description = "Toolbox for imbalanced dataset in machine learning."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+joblib = ">=0.11"
+numpy = ">=1.13.3"
+scikit-learn = ">=0.24"
+scipy = ">=0.19.1"
+
+[package.extras]
+dev = ["black", "flake8"]
+docs = ["sphinx", "sphinx-gallery", "pydata-sphinx-theme", "sphinxcontrib-bibtex", "numpydoc", "matplotlib", "pandas", "seaborn"]
+optional = ["keras", "tensorflow"]
+tests = ["pytest", "pytest-cov"]
+
+[[package]]
+name = "imblearn"
+version = "0.0"
+description = "Toolbox for imbalanced dataset in machine learning."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+imbalanced-learn = "*"
 
 [[package]]
 name = "importlib-metadata"
@@ -147,6 +197,14 @@ pytz = ">=2017.2"
 
 [package.extras]
 test = ["pytest (>=4.0.2)", "pytest-xdist", "hypothesis (>=3.58)"]
+
+[[package]]
+name = "pyahocorasick"
+version = "1.4.2"
+description = "pyahocorasick is a fast and memory efficient library for exact or approximate multi-pattern string search.  With the ahocorasick.Automaton class, you can find multiple key strings occurrences at once in some input text.  You can use it as a plain dict-like Trie or convert a Trie to an automaton for efficient Aho-Corasick search.  Implemented in C and tested on Python 2.7 and 3.4+.  Works on Linux, Mac and Windows. BSD-3-clause license."
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "python-dateutil"
@@ -274,6 +332,18 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "textsearch"
+version = "0.0.21"
+description = "Find strings/words in text; convenience and C speed"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+anyascii = "*"
+pyahocorasick = "*"
+
+[[package]]
 name = "threadpoolctl"
 version = "3.0.0"
 description = "threadpoolctl"
@@ -344,9 +414,13 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "7f9bcc8659c57a038adcd5aa5ec5865855ad015a52f7b0f15aaae3184230f808"
+content-hash = "d72bfc76fa121f5180bc9472d636e5903ade6dca22a31ce2ab1b94f1edcbc7f2"
 
 [metadata.files]
+anyascii = [
+    {file = "anyascii-0.3.0-py3-none-any.whl", hash = "sha256:68f6917fe5b22caf7dde8551b838e5e17d5e3c96c55734485699bd03ad92237f"},
+    {file = "anyascii-0.3.0.tar.gz", hash = "sha256:24f27431fb64c6c93a33125fb66f8cba007a5262bc1faabeafeda5f4bb70b593"},
+]
 beautifulsoup4 = [
     {file = "beautifulsoup4-4.10.0-py3-none-any.whl", hash = "sha256:9a315ce70049920ea4572a4055bc4bd700c940521d36fc858205ad4fcde149bf"},
     {file = "beautifulsoup4-4.10.0.tar.gz", hash = "sha256:c23ad23c521d818955a4151a67d81580319d4bf548d3d49f4223ae041ff98891"},
@@ -367,9 +441,21 @@ colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
+contractions = [
+    {file = "contractions-0.0.58-py2.py3-none-any.whl", hash = "sha256:c17a508e4d2a841ca9428001f272d5976f8e34b752fc8218f0ce73c19b185670"},
+    {file = "contractions-0.0.58.tar.gz", hash = "sha256:cd06a029e9ba6a486c8a3ed3f9c77173cf7c19b2ff9a21d8ed1a87e9e07661e1"},
+]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
     {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
+]
+imbalanced-learn = [
+    {file = "imbalanced-learn-0.8.1.tar.gz", hash = "sha256:eaf576b1ba3523a0facf3aaa483ca17e326301e53e7678c54d73b7e0250edd43"},
+    {file = "imbalanced_learn-0.8.1-py3-none-any.whl", hash = "sha256:fcd4a54618d118998933d7366133889d2ba6508cca209de27a22b3205d82a3f9"},
+]
+imblearn = [
+    {file = "imblearn-0.0-py2.py3-none-any.whl", hash = "sha256:d42c2d709d22c00d2b9a91e638d57240a8b79b4014122d92181fcd2549a2f79a"},
+    {file = "imblearn-0.0.tar.gz", hash = "sha256:d8fbb662919c1b16f438ad91a8256220e53bcf6815c9ad5502c518b798de34f2"},
 ]
 importlib-metadata = [
     {file = "importlib_metadata-4.8.2-py3-none-any.whl", hash = "sha256:53ccfd5c134223e497627b9815d5030edf77d2ed573922f7a0b8f8bb81a1c100"},
@@ -441,6 +527,9 @@ pandas = [
     {file = "pandas-1.1.5-cp39-cp39-win32.whl", hash = "sha256:c94ff2780a1fd89f190390130d6d36173ca59fcfb3fe0ff596f9a56518191ccb"},
     {file = "pandas-1.1.5-cp39-cp39-win_amd64.whl", hash = "sha256:edda9bacc3843dfbeebaf7a701763e68e741b08fccb889c003b0a52f0ee95782"},
     {file = "pandas-1.1.5.tar.gz", hash = "sha256:f10fc41ee3c75a474d3bdf68d396f10782d013d7f67db99c0efbfd0acb99701b"},
+]
+pyahocorasick = [
+    {file = "pyahocorasick-1.4.2.tar.gz", hash = "sha256:88f79307c74ae6a84f8d88c2522a082f1d21c425762aba7f7e4d14dd431d2fb7"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
@@ -571,6 +660,10 @@ soupsieve = [
 text-unidecode = [
     {file = "text-unidecode-1.3.tar.gz", hash = "sha256:bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93"},
     {file = "text_unidecode-1.3-py2.py3-none-any.whl", hash = "sha256:1311f10e8b895935241623731c2ba64f4c455287888b18189350b67134a822e8"},
+]
+textsearch = [
+    {file = "textsearch-0.0.21-py2.py3-none-any.whl", hash = "sha256:4b8b946b0ed8986b651a0d6ca526c3c5bc777bcc9d83312dfad3b10635f00de9"},
+    {file = "textsearch-0.0.21.tar.gz", hash = "sha256:2d501541effd2e3698391b48596676333bb61f59c6090ce52184bcd945f2bdb0"},
 ]
 threadpoolctl = [
     {file = "threadpoolctl-3.0.0-py3-none-any.whl", hash = "sha256:4fade5b3b48ae4b1c30f200b28f39180371104fccc642e039e0f2435ec8cc211"},
