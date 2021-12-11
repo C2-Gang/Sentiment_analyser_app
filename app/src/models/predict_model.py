@@ -13,12 +13,10 @@ def predict(review: str, model_type: str):
     print(sentiment_value)
     return sentiment_value
 
-
-
-
 def get_sentiment(sentiment: int):
     sent = {
-        0: "negative",
-        1: "positive"
+        -1: "negative",
+        1: "positive",
+        0: "neutral"
     }
     return sent.get(sentiment)

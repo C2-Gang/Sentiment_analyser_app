@@ -9,6 +9,10 @@ install: # Install dependencies
 run: # Run code
 	poetry run python  app/app.py
 
+.PHONY: run_ml
+run_ml: # Run code
+	poetry run python  app/__main__.py
+
 .PHONY: build
 build:  ## Build the package wheel and sdist.
 	poetry build
