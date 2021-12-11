@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-
 from kaggle.api.kaggle_api_extended import KaggleApi
-import pandas as pd
 from src.utils import directory_path, unzip_file
 
 
@@ -17,7 +14,7 @@ def authenticate_kaggle_api():
     return api
 
 
-def get_raw_kaggle(name: str, path_zip_file: str, path_csv_file: str):
+def get_raw_kaggle(path_zip_file: str, path_csv_file: str):
     """This function get the competition
     datasets from Kaggle API.
 
@@ -32,9 +29,10 @@ def get_raw_kaggle(name: str, path_zip_file: str, path_csv_file: str):
     """
     try:
         api = authenticate_kaggle_api()
-        api.dataset_download_file("lakshmi25npathi/imdb-dataset-of-50k-movie-reviews", 'IMDB Dataset.csv', path_zip_file)
-        unzip_file(f"{path_zip_file}/{name}", f"{path_csv_file}")
-        print('done')
+        api.dataset_download_files("cosmos98/twitter-and-reddit-sentimental-analysis-dataset", path_zip_file)
+
+        unzip_file(f"{path_zip_file}/twitter-and-reddit-sentimental-analysis-dataset", f"{path_csv_file}")
+        print("done")
         return True
     except Exception:
         print("Dataset not found.")
@@ -46,8 +44,7 @@ def generate_raw():
     :param file: name of the dataset
     :type file: str
     """
-    name = "IMDB%20Dataset.csv"
 
     path_zip_file = f"{directory_path}data/external"
     path_csv_file = f"{directory_path}data/raw"
-    get_raw_kaggle(name, path_zip_file, path_csv_file)
+    get_raw_kaggle(path_zip_file, path_csv_file)

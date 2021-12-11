@@ -12,6 +12,8 @@ nltk = "^3.6.5"
 beautifulsoup4 = "^4.10.0"
 sklearn = "^0.0"
 vaderSentiment = "^3.3.2"
+contractions = "^0.0.58"
+imblearn = "^0.0"
 
 [tool.poetry.dev-dependencies]
 

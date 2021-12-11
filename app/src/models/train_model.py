@@ -8,56 +8,43 @@ from sklearn.svm import LinearSVC
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.utils import resample
 
 analyser = SentimentIntensityAnalyzer()
 
-def sentiment(sentence: str, comp_type: str):
-    """This function allows to calculate the mean sentiment
-    of sentences.
-
-    :param sentence: sentence to get sentiment from
-    :type sentence: str
-    :param comp_type: type of sentiment expected
-    :type comp_type: str
-    :return: sentiment mean value of all sentences
-    :rtype:
-    """
-    sentiment = []
-    sum_sent = 0
-    for sent in sentence:
-        sent = ' '.join(sent)
-        score = analyser.polarity_scores(sent)
-        sentiment.append(score[comp_type])
-        sum_sent += score[comp_type]
-
-    return sum_sent / len(sentiment)
-
-def get_sentiment(df: pd.DataFrame, column_name: str):
-    """This function allows you to get the respectively
-    positive and negative sentiments.
-
-    :param df: dataset with text sentiments to analyze
+def do_sampling(df: pd.DataFrame, label: str, minority:int, majority:int, neutral):
+    """This function allows you to balance unbalanced dataset.
+    By specifying the downsample coefficient value,
+    one can downsample its dataset.
+    :param df: dataset to downsample
     :type df: pd.DataFrame
-    :param column_name: column name
-    :type column_name: str
-    :return: dataset with vader sentiment values
-    :rtype: pd.DataFrame
+    :param label: target
+    :type label: str
+    :param downsample_coef: dowsampling coefficient to apply
+    :type downsample_coef: float
+    :return: a new df.DataFrame which has been downsample
+    :rtype: df.DataFrame
     """
-    df['Positive'] = df[column_name].map(lambda x: sentiment(x, "pos")).astype(float)
-    df['Negative'] = df[column_name].map(lambda x: sentiment(x, "neg")).astype(float)
-    return df
 
-def sentiment_comment(comment):
-    """This function allows you to get the respectively
-    positive and negative sentiments
+    df_majority = df[df[label] == majority]
+    df_minority = df[df[label] == minority]
+    df_neutral = df[df[label] == neutral]
+    df_majority_downsampled = resample(
+        df_majority, replace=True,
+        n_samples=35500, random_state=1
+    )
+    df_up_down_sampled = pd.concat([df_majority_downsampled, df_minority, df_neutral])
+    return df_up_down_sampled
 
-    :param comment: comment value
-    :type comment:
-    :return: predominant sentiment
-    :rtype: boolean
-    """
-    if comment["Positive"] >= comment["Negative"]:
+
+
+def get_global_sentiment(sentiment):
+    if sentiment >= 0.05:
         return 1
+    elif sentiment <= - 0.05:
+        return -1
     else:
         return 0
 
@@ -74,7 +61,7 @@ def calculate_global_sentiment(df: pd.DataFrame):
     dataset = df.copy()
     dataset['global_scores_dict'] = dataset['comments_join'].apply(lambda review: analyser.polarity_scores(review))
     dataset['global_scores'] = dataset['global_scores_dict'].apply(lambda comp: comp['compound'])
-    dataset['comp_score_global'] = dataset['global_scores'].apply(lambda c: 1 if c >= 0 else 0)
+    dataset['comp_score_global'] = dataset['global_scores'].apply(get_global_sentiment)
     return dataset['comp_score_global']
 
 def test_vader_model(df_test: pd.DataFrame):
@@ -85,13 +72,8 @@ def test_vader_model(df_test: pd.DataFrame):
     :param df_test: comment value
     :type df_test: pd.DataFrame
     """
-    df_test = get_sentiment(df_test, "comments_processed")
-    df_test['comp_score'] = df_test.apply(sentiment_comment, axis=1)
-
-    evaluate_model(df_test['sentiment_score'], df_test['comp_score'], 'vader')
-
     df_test['comp_score_global'] = calculate_global_sentiment(df_test)
-    evaluate_model(df_test['sentiment_score'], df_test['comp_score_global'], 'vader_global')
+    evaluate_model(df_test['sentiment'], df_test['comp_score_global'], 'vader_global')
 
 
 
@@ -107,6 +89,10 @@ def select_model(model_type: str):
         model =  LinearSVC()
     elif model_type == 'multinomialNB':
         model = MultinomialNB()
+    elif model_type == "svm":
+        model = SVC(probability=True)
+    elif model_type == 'decisiontree':
+        model = DecisionTreeClassifier()
     else:
         model = LogisticRegression(penalty='l2', max_iter=500, random_state=42)
 
@@ -129,13 +115,15 @@ def train_test_model(model_type:str, df_train: pd.DataFrame, df_test: pd.DataFra
     """
     model = select_model(model_type)
 
-    model.fit(df_train['comments_join'], df_train['sentiment_score'])
+    model.fit(df_train['comments_join'], df_train['sentiment'])
 
     predictions = model.predict(df_test['comments_join'])
 
     dump_pickle(f"{directory_path}models/{model_type}/{model_type}", model)
 
-    evaluate_model(df_test['sentiment_score'], predictions, model_type)
+    evaluate_model(df_test['sentiment'], predictions, model_type)
+
+
 
 
 def evaluate_model(y_true: pd.DataFrame, y_pred: pd.DataFrame, model_type: str):
@@ -149,7 +137,7 @@ def evaluate_model(y_true: pd.DataFrame, y_pred: pd.DataFrame, model_type: str):
     :param model_type: model type
     :type model_type: str
     """
-    f1 = f1_score(y_true, y_pred)
+    f1 = f1_score(y_true, y_pred, average="macro")
     accuracy = accuracy_score(y_true, y_pred)
     print(f"Validation F1 Score  : {f1} and Accuracy Score {accuracy}")
 
@@ -166,8 +154,13 @@ def evaluate_model(y_true: pd.DataFrame, y_pred: pd.DataFrame, model_type: str):
 def evaluate_models():
     """This function allows you to evaluate several models.
     """
-    df = pd.read_csv(f'{directory_path}data/processed/IMDB Dataset.csv')
-    df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
+    dataset = pd.read_csv(f'{directory_path}data/processed/train.csv').dropna(axis=0, subset=['comments_join', 'sentiment'])
+    print(dataset.sentiment.value_counts())
+    dataset = do_sampling(dataset, 'sentiment', -1, 1, 0)
+    dataset = do_sampling(dataset, 'sentiment', -1, 0, 1)
+    print(dataset.sentiment.value_counts())
+    df_train, df_test = train_test_split(dataset,test_size = 0.2)
+
     print("Vader sentiment analysis")
     test_vader_model(df_test)
     print("Logistic")
@@ -176,4 +169,25 @@ def evaluate_models():
     train_test_model("linearsvc", df_train, df_test)
     print("multinomialNB")
     train_test_model("multinomialNB", df_train, df_test)
+    #print("svm")
+    #train_test_model("svm", df_train, df_test)
+    #print("decisiontree")
+    #train_test_model("decisiontree", df_train, df_test)
 
+
+"""
+https://www.kaggle.com/faressayah/natural-language-processing-nlp-for-beginners
+
+The multinomial Naive Bayes classifier is suitable for classification with discrete features 
+(e.g., word counts for text classification). 
+The multinomial distribution normally requires integer feature counts. 
+However, in practice, fractional counts such as tf-idf may also work.
+"""
+
+""" 
+Logistic regression, despite its name, is a linear model for classification rather than regression. 
+Logistic regression is also known in the literature as logit regression, maximum-entropy classification (MaxEnt) 
+or the log-linear classifier. 
+In this model, the probabilities describing the possible outcomes 
+of a single trial are modeled using a logistic function.
+"""
