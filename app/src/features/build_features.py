@@ -3,11 +3,11 @@ from nltk.corpus import stopwords
 from nltk import word_tokenize
 nltk.download("stopwords")
 import pandas as pd
-from src.utils import directory_path
+from src.utils import directory_path,dump_pickle
 import re
 import numpy as np
-import contractions
 from src.models.vocabulary import DIC_VOCABULARY
+import contractions
 
 def clean_labels(df):
     print(df.sentiment.value_counts())
@@ -18,32 +18,53 @@ def clean_labels(df):
 def clean_text(text):
     text = str(text).lower()
     text = contractions.fix(text)
-    text = re.sub(r"@[A-Za-z0-9]+", ' ', text)
-    text = re.sub(r"[^a-zA-Z.!?]", ' ', text)
-    text = re.sub(r" +", ' ', text)
-    text = re.sub(r"https?://\S+|www\.\S+", "", text)
+    # http links
+    text = re.sub(r"http\S+", "", text)
+
+    # html
     html = re.compile(r"<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});")
     text = re.sub(html, "", text)
-    text = re.sub(r'[^\x00-\x7f]', r'', text)
+
+    #twitter @
+    text = re.sub(r"@[A-Za-z0-9]+", ' ', text)
+
+    # others
+    text = re.sub(r'\s+', ' ', text)
     return text
 
 
-def preprocessing(text):
-    text_clear = clean_text(text)
-    sents = nltk.sent_tokenize(text_clear)
-    owned_stopwords = ['``', ' ', '']
-    owned_stopwords.extend(stopwords.words("english"))
-    words = [word_tokenize(s.lower()) for s in sents]
-    STOPWORDS = stopwords.words('english') + [ 'ure',
-        'u', 'ü', 'ur', '4', '2', "http", 'com']
-    words = [[DIC_VOCABULARY[e]  if e in DIC_VOCABULARY else e for e in word]  for word in words]
+def build_own_contractions():
+    for k,v in DIC_VOCABULARY.items():
+        contractions.add(k, v)
+    #dump_pickle(f"{directory_path}models/contractions", contractions)
+
+
+def clean_stopwords(words):
+    STOPWORDS = stopwords.words('english')
     sentences = [[e for e in word if not e in STOPWORDS] for word in words]
+    return sentences
+
+
+def preprocessing(text):
+    build_own_contractions()
+
+    # first cleaning
+    text_clean = clean_text(text)
+    text_clear = contractions.fix(text_clean)
+
+    sents = nltk.sent_tokenize(text_clear)
+    words = [word_tokenize(s) for s in sents]
+
+    # deeper cleaning
+    sentences = clean_stopwords(words)
+
+    # alpha
+    sentences = [[e for e in word if e.isalpha()] for word in sentences]
 
     return sentences
 
 
 def join_words_processing(text):
-    text = [[e for e in word if e.isalpha()] for word in text]
     data = [' '.join(ele) for ele in text]
     if len(data) <1:
         return np.nan

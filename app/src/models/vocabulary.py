@@ -234,6 +234,6 @@ DIC_VOCABULARY = {
     "yd": "yard",
     "ygtr": "you got that right",
     "ynk": "you never know",
-    "zzz": "sleeping bored and tired"
+    "zzz": "sleeping bored and tired",
 
 }

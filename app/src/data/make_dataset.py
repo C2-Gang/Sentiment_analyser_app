@@ -14,12 +14,12 @@ def authenticate_kaggle_api():
     return api
 
 
-def get_raw_kaggle(path_zip_file: str, path_csv_file: str):
+def get_raw_kaggle(dataset_kaggle: str, path_zip_file: str, path_csv_file: str):
     """This function get the competition
     datasets from Kaggle API.
 
-    :param competition_name: name of the competition
-    :type competition_name: str
+    :param dataset_kaggle: name of the kaggle dataset
+    :type dataset_kaggle: str
     :param file: name of the dataset
     :type file: str
     :param path_file: path defined to store the .zip
@@ -29,7 +29,7 @@ def get_raw_kaggle(path_zip_file: str, path_csv_file: str):
     """
     try:
         api = authenticate_kaggle_api()
-        api.dataset_download_files("cosmos98/twitter-and-reddit-sentimental-analysis-dataset", path_zip_file)
+        api.dataset_download_files(dataset_kaggle, path_zip_file)
 
         unzip_file(f"{path_zip_file}/twitter-and-reddit-sentimental-analysis-dataset", f"{path_csv_file}")
         print("done")
@@ -44,7 +44,7 @@ def generate_raw():
     :param file: name of the dataset
     :type file: str
     """
-
+    dataset_kaggle = "cosmos98/twitter-and-reddit-sentimental-analysis-dataset"
     path_zip_file = f"{directory_path}data/external"
     path_csv_file = f"{directory_path}data/raw"
-    get_raw_kaggle(path_zip_file, path_csv_file)
+    get_raw_kaggle(dataset_kaggle, path_zip_file, path_csv_file)
