@@ -110,29 +110,5 @@ body {
 .submit:active {
     background-color: #06b;
 }
-  
-.output {
-    display: inline-block;
-	position: relative;
-	left: 49%;
-	transform: translateX(-50%);
-    background-image:-webkit-linear-gradient(top, #08d 0%, #dc2f55 100%);
-    background-image: linear-gradient(to bottom, #08d 0%, #dc2f55 100%);
 
-    margin: 10px;
-    color: white;
-    background-color: #08d;
-
-    width: 100px;
-    height: 70px;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-
-    text-align: center;
-    line-height: 3.5em;
-    font-family: sans-serif;
-    font-size: 20px;
 }
-
-    
