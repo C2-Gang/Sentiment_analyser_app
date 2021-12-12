@@ -26,9 +26,22 @@ def handle():
     :return: jsonify(sentiment)
     :rtype: json
     """
-    review = str(request.args.get("piecetext"))
-    sentiment = predict(review, model)
-    return jsonify(sentiment)
+    #review = str(request.args.get("piecetext"))
+    review = str(request.args["piecetext"])
+    return predict_text(review)
+
+
+def predict_text(text: str):
+    if ((text == '') or (text == 'None') ):
+        sentiment = 'error null string.'
+    else:
+        sentiment = predict(text, model)
+    sent = {
+        "text": text,
+        "sentiment": sentiment}
+    return jsonify(sent)
+
+
 
 
 # times

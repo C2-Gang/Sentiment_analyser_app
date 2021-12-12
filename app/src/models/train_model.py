@@ -175,19 +175,3 @@ def evaluate_models():
     #train_test_model("decisiontree", df_train, df_test)
 
 
-"""
-https://www.kaggle.com/faressayah/natural-language-processing-nlp-for-beginners
-
-The multinomial Naive Bayes classifier is suitable for classification with discrete features 
-(e.g., word counts for text classification). 
-The multinomial distribution normally requires integer feature counts. 
-However, in practice, fractional counts such as tf-idf may also work.
-"""
-
-""" 
-Logistic regression, despite its name, is a linear model for classification rather than regression. 
-Logistic regression is also known in the literature as logit regression, maximum-entropy classification (MaxEnt) 
-or the log-linear classifier. 
-In this model, the probabilities describing the possible outcomes 
-of a single trial are modeled using a logistic function.
-"""
