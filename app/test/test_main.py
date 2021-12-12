@@ -4,9 +4,8 @@ from src.utils import directory_path, unzip_file
 from src.features.build_features import clean_text, join_words_processing, preprocessing, clean_stopwords
 from flask import g
 from app import app
-from flask import json
 import ast
-from flask import jsonify
+
 
 class TestML(unittest.TestCase):
     def test_make_dataset(self):
@@ -106,7 +105,7 @@ class TestApp(unittest.TestCase):
         html = response.get_data(as_text=True)
         assert 'name="piecetext"' in html
 
-    def test_form_user(self):
+    def test_text_sentiment(self):
         """This function test if the site output is correct (Negative, Neutral or Positive): a test that sends a GET request to the website
         and confirms that the website returns the correct answer.
 
@@ -136,7 +135,7 @@ class TestApp(unittest.TestCase):
         """This function calculate if the average response time of the site is below 100 ms per request.
 
         """
-        self.test_form_user()
+        self.test_text_sentiment()
         assert g.request_time <= 100
         print(g.request_time)
 
@@ -147,14 +146,11 @@ class TestApp(unittest.TestCase):
         """
         request_time = []
         for i in range(1000):
-            self.test_form_user()
+            self.test_text_sentiment()
             request_time.append(g.request_time)
         average = sum(request_time) / len(request_time)
         assert average <= 100
 
-
-def convert_readable_response(response):
-    return response.data.encode('utf-8')
 
 if __name__ == '__main__':
     unittest.main()
