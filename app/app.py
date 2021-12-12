@@ -2,7 +2,7 @@ import time
 from flask import Flask, render_template, request, jsonify, g
 from src.models.predict_model import predict
 from src.utils import directory_path, load_pickle
-
+import json
 
 app = Flask(__name__, template_folder='templates')
 model_type = "linearsvc"
@@ -26,8 +26,7 @@ def handle():
     :return: jsonify(sentiment)
     :rtype: json
     """
-    #review = str(request.args.get("piecetext"))
-    review = str(request.args["piecetext"])
+    review = str(request.args.get("piecetext"))
     return predict_text(review)
 
 
@@ -39,7 +38,7 @@ def predict_text(text: str):
     sent = {
         "text": text,
         "sentiment": sentiment}
-    return jsonify(sent)
+    return json.dumps(sent)
 
 
 
