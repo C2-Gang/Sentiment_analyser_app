@@ -1,11 +1,11 @@
 from src.data.make_dataset import generate_raw
-from src.features.build_features import do_preprocessing
+from src.features.build_features import preprocess_data
 from src.models.train_model import evaluate_models
 from src.models.predict_model import predict
 
 if __name__ == "__main__":
     pass
     #generate_raw()
-    #do_preprocessing()
-    #evaluate_models()
-    #predict("This movie was horrible, I was very disappointed. Just trash","linearsvc")
+    preprocess_data()
+    evaluate_models()
+    predict("Tbh this movie was horrible, I was very disappointed. Just trash","linearsvc")
