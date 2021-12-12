@@ -44,21 +44,21 @@ class TestApp(unittest.TestCase):
         assert json.dumps(error)
 
         response = self.client.get('/handle', data={
-            'piecetext': 'I really really like the song Love Story by Taylor Swift',
+            'piecetext': 'heard there was direct line narendra modi which can accessed any average gujju this true',
         }, follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         sentiment = "positive"
         assert json.dumps(sentiment)
 
         response = self.client.get('/handle', data={
-            'piecetext': 'i want to go to music tonight but i lost my voice.',
+            'piecetext': 'geez why every single post this thread downvoted',
         }, follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         sentiment = "negative"
         assert json.dumps(sentiment)
 
         response = self.client.get('/handle', data={
-            'piecetext': 'I`d rather do the early run..but I am a morning runner',
+            'piecetext': 'can congress eliminate namo and blame advani',
         }, follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         sentiment = "neutral"
