@@ -1,13 +1,10 @@
 <html>
-  <head> 
+  <head>
     <link rel="stylesheet" href= "{{ url_for('static',filename='styles/form.css') }}" type="text/css "/>
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='javascript/form.js') }}"></script>
   </head>
   <body>
     <div name="form" >
-      <div class="form">
+      <form action = "/handle" method = "get">
         <div class="title">Welcome to the sentiment analysis application</div>
         <div class="subtitle">Let's enter a piece of text. We will tell you if it is positive, negative, or neutral.</div>
         <div class="input" >
@@ -17,12 +14,19 @@
         </div>
         <button type="submit" class="submit" value = "submit" id="button">Submit</button>
         <div class="output" id="output_sentiment">
-          {{ suggestion }}<br>
+          <br>
 
         </div>
-      </div>
+      </form>
     </div>
   </body>
 </html>
-<!-- <output name="result" class="output" value = "Your sentence is ..."></output>-->
+<!--
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='javascript/form.js') }}"></script>
+
+
+
+<output name="result" class="output" value = "Your sentence is ..."></output>-->
 
