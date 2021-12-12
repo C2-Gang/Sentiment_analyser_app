@@ -28,7 +28,8 @@ def handle():
     """
     #review = str(request.args.get("piecetext"))
     review = str(request.args["piecetext"])
-    return predict_text(review)
+    sent = predict_text(review)
+    return render_template('results.html', content = sent['text'] ,prediction = sent['sentiment'])
 
 
 def predict_text(text: str):
@@ -39,7 +40,8 @@ def predict_text(text: str):
     sent = {
         "text": text,
         "sentiment": sentiment}
-    return jsonify(sent)
+    return sent
+
 
 
 
