@@ -4,10 +4,12 @@ from src.models.predict_model import predict
 from src.utils import directory_path, load_pickle
 import json
 
+
 app = Flask(__name__, template_folder='templates')
 model_type = "linearsvc"
 path = f"{directory_path}models/{model_type}/{model_type}"
 model = load_pickle(path)
+
 
 @app.route('/')
 def home():
@@ -23,8 +25,8 @@ def home():
 def handle():
     """This function retrieve the text from the user, apply on it the prediction and return the sentiment.
 
-    :return: jsonify(sentiment)
-    :rtype: json
+    :return: render_template
+    :rtype: render_template
     """
     review = str(request.args["piecetext"])
     sent = predict_text(review)
@@ -32,14 +34,49 @@ def handle():
 
 
 def predict_text(text: str):
+    """This function do sentiment prediction on a text and return the sentiment.
+
+    :param text: text to predict
+    :type text: str
+    :return: dict sent
+    :rtype: dict
+    """
     if ((text == '') or (text == 'None') ):
-        sentiment = 'error null string.'
+        sentiment = 'empty ! Try again'
     else:
         sentiment = predict(text, model)
     sent = {
         "text": text,
         "sentiment": sentiment}
     return sent
+
+
+@app.route('/json_handle',methods=['GET'])
+def json_handle():
+    """This function retrieve the text from the user, apply on it the prediction and return the sentiment.
+    :return: jsonify(sentiment)
+    :rtype: json
+    """
+    review = str(request.args["piecetext"])
+    return json_predict_text(review)
+
+
+def json_predict_text(text: str):
+    """This function do sentiment prediction on a text and return a json file.
+
+    :param text: text to predict
+    :type text: str
+    :return: jsonify(sent)
+    :rtype: json
+    """
+    if ((text == '') or (text == 'None') ):
+        sentiment = 'empty ! Try again'
+    else:
+        sentiment = predict(text, model)
+    sent = {
+        "text": text,
+        "sentiment": sentiment}
+    return jsonify(sent)
 
 
 # times

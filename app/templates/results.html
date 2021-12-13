@@ -3,7 +3,7 @@
         <link rel="stylesheet" href= "{{ url_for('static',filename='styles/results.css') }}" type="text/css "/>
     </head>
     <body>
-        <div class="result">Your tweet "{{ content }}" is {{ prediction }}.</div>
+        <div class="result">Your text <i>{{ content }}</i> is {{ prediction }}.</div>
         <div id='button'>
             <form action="/">
                 <button type="submit" class="submit" value = "submit" id="button">Back</button>

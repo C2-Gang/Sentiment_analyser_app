@@ -111,22 +111,22 @@ class TestApp(unittest.TestCase):
 
         """
 
-        response = self.client.get('/handle?piecetext=')
-        expected_result = {'text': '', 'sentiment': 'error null string.'}
+        response = self.client.get('/json_handle?piecetext=')
+        expected_result = {'text': '', 'sentiment': 'empty ! Try again'}
         assert ast.literal_eval(response.data.decode("utf-8")) == expected_result
 
         text = 'heard there was direct line narendra modi which can accessed any average gujju this true'
-        response = self.client.get('/handle?piecetext=heard+there+was+direct+line+narendra+modi+which+can+accessed+any+average+gujju+this+true')
+        response = self.client.get('/json_handle?piecetext=heard+there+was+direct+line+narendra+modi+which+can+accessed+any+average+gujju+this+true')
         expected_result = {'text': text, 'sentiment': 'positive'}
         assert ast.literal_eval(response.data.decode("utf-8")) == expected_result
 
         text = 'geez why every single post this thread downvoted'
-        response = self.client.get(f'/handle?piecetext=geez+why+every+single+post+this+thread+downvoted')
+        response = self.client.get(f'/json_handle?piecetext=geez+why+every+single+post+this+thread+downvoted')
         expected_result = {'text': text, 'sentiment': 'negative'}
         assert ast.literal_eval(response.data.decode("utf-8")) == expected_result
 
         text = 'can congress eliminate namo and blame advani'
-        response = self.client.get(f'/handle?piecetext=can+congress+eliminate+namo+and+blame+advani')
+        response = self.client.get(f'/json_handle?piecetext=can+congress+eliminate+namo+and+blame+advani')
         expected_result = {'text': text, 'sentiment': 'neutral'}
         assert ast.literal_eval(response.data.decode("utf-8")) == expected_result
 
