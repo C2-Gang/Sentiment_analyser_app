@@ -61,25 +61,7 @@ def json_handle():
     :rtype: json
     """
     review = str(request.args["piecetext"])
-    return json_predict_text(review)
-
-
-def json_predict_text(text: str):
-    """This function do sentiment prediction on a text and return a json file.
-
-    :param text: text to predict
-    :type text: str
-    :return: jsonify(sent)
-    :rtype: json
-    """
-    if ((text == '') or (text == 'None') ):
-        sentiment = 'empty ! Try again'
-    else:
-        sentiment = predict(text, model)
-    sent = {
-        "text": text,
-        "sentiment": sentiment}
-    return jsonify(sent)
+    return jsonify(predict_text(review))
 
 
 # times
