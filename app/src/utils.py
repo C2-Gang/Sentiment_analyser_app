@@ -6,7 +6,7 @@ import json
 
 def get_directory():
     directory_path = os.path.realpath(__file__).replace("app/src/utils.py", "")
-    if directory_path == "":
+    if ((directory_path == "/") or (directory_path == "")):
         return "./"
     else:
         return directory_path
