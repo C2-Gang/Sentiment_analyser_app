@@ -7,19 +7,12 @@ optional = false
 python-versions = ">=3.3"
 
 [[package]]
-name = "beautifulsoup4"
-version = "4.10.0"
-description = "Screen-scraping library"
+name = "cachelib"
+version = "0.4.1"
+description = "A collection of cache libraries in the same API interface."
 category = "main"
 optional = false
-python-versions = ">3.0.0"
-
-[package.dependencies]
-soupsieve = ">1.2"
-
-[package.extras]
-html5lib = ["html5lib"]
-lxml = ["lxml"]
+python-versions = ">=3.6"
 
 [[package]]
 name = "certifi"
@@ -90,43 +83,24 @@ async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
 
 [[package]]
+name = "flask-session"
+version = "0.4.0"
+description = "Adds server-side session support to your Flask application"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+cachelib = "*"
+Flask = ">=0.8"
+
+[[package]]
 name = "idna"
 version = "3.3"
 description = "Internationalized Domain Names in Applications (IDNA)"
 category = "main"
 optional = false
 python-versions = ">=3.5"
-
-[[package]]
-name = "imbalanced-learn"
-version = "0.8.1"
-description = "Toolbox for imbalanced dataset in machine learning."
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-joblib = ">=0.11"
-numpy = ">=1.13.3"
-scikit-learn = ">=0.24"
-scipy = ">=0.19.1"
-
-[package.extras]
-dev = ["black", "flake8"]
-docs = ["sphinx", "sphinx-gallery", "pydata-sphinx-theme", "sphinxcontrib-bibtex", "numpydoc", "matplotlib", "pandas", "seaborn"]
-optional = ["keras", "tensorflow"]
-tests = ["pytest", "pytest-cov"]
-
-[[package]]
-name = "imblearn"
-version = "0.0"
-description = "Toolbox for imbalanced dataset in machine learning."
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-imbalanced-learn = "*"
 
 [[package]]
 name = "importlib-metadata"
@@ -364,14 +338,6 @@ python-versions = "*"
 scikit-learn = "*"
 
 [[package]]
-name = "soupsieve"
-version = "2.3.1"
-description = "A modern CSS selector implementation for Beautiful Soup."
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[[package]]
 name = "text-unidecode"
 version = "1.3"
 description = "The most basic Text::Unidecode port"
@@ -473,16 +439,16 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "78155d8a507b69408d4ede23e0c37431d8ff4fac437e1b1c28473e6e63bb736d"
+content-hash = "fbf0f055d5b45a5006cd9334a298afa38b22574c0b885cd587cd3e24e1ae8e55"
 
 [metadata.files]
 anyascii = [
     {file = "anyascii-0.3.0-py3-none-any.whl", hash = "sha256:68f6917fe5b22caf7dde8551b838e5e17d5e3c96c55734485699bd03ad92237f"},
     {file = "anyascii-0.3.0.tar.gz", hash = "sha256:24f27431fb64c6c93a33125fb66f8cba007a5262bc1faabeafeda5f4bb70b593"},
 ]
-beautifulsoup4 = [
-    {file = "beautifulsoup4-4.10.0-py3-none-any.whl", hash = "sha256:9a315ce70049920ea4572a4055bc4bd700c940521d36fc858205ad4fcde149bf"},
-    {file = "beautifulsoup4-4.10.0.tar.gz", hash = "sha256:c23ad23c521d818955a4151a67d81580319d4bf548d3d49f4223ae041ff98891"},
+cachelib = [
+    {file = "cachelib-0.4.1-py3-none-any.whl", hash = "sha256:b766ce83499652b1c7bf3fb09fedc26121533bf21249e8a9927f39445b939430"},
+    {file = "cachelib-0.4.1.tar.gz", hash = "sha256:68e27dae1bb73ba02071f1cf413111d96f8175fd37176f35a5ccb9bdf6848c5c"},
 ]
 certifi = [
     {file = "certifi-2021.10.8-py2.py3-none-any.whl", hash = "sha256:d62a0163eb4c2344ac042ab2bdf75399a71a2d8c7d47eac2e2ee91b9d6339569"},
@@ -508,17 +474,13 @@ flask = [
     {file = "Flask-2.0.2-py3-none-any.whl", hash = "sha256:cb90f62f1d8e4dc4621f52106613488b5ba826b2e1e10a33eac92f723093ab6a"},
     {file = "Flask-2.0.2.tar.gz", hash = "sha256:7b2fb8e934ddd50731893bdcdb00fc8c0315916f9fcd50d22c7cc1a95ab634e2"},
 ]
+flask-session = [
+    {file = "Flask-Session-0.4.0.tar.gz", hash = "sha256:c9ed54321fa8c4ca0132ffd3369582759eda7252fb4b3bee480e690d1ba41f46"},
+    {file = "Flask_Session-0.4.0-py2.py3-none-any.whl", hash = "sha256:1e3f8a317005db72c831f85d884a5a9d23145f256c730d80b325a3150a22c3db"},
+]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
     {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
-]
-imbalanced-learn = [
-    {file = "imbalanced-learn-0.8.1.tar.gz", hash = "sha256:eaf576b1ba3523a0facf3aaa483ca17e326301e53e7678c54d73b7e0250edd43"},
-    {file = "imbalanced_learn-0.8.1-py3-none-any.whl", hash = "sha256:fcd4a54618d118998933d7366133889d2ba6508cca209de27a22b3205d82a3f9"},
-]
-imblearn = [
-    {file = "imblearn-0.0-py2.py3-none-any.whl", hash = "sha256:d42c2d709d22c00d2b9a91e638d57240a8b79b4014122d92181fcd2549a2f79a"},
-    {file = "imblearn-0.0.tar.gz", hash = "sha256:d8fbb662919c1b16f438ad91a8256220e53bcf6815c9ad5502c518b798de34f2"},
 ]
 importlib-metadata = [
     {file = "importlib_metadata-4.8.2-py3-none-any.whl", hash = "sha256:53ccfd5c134223e497627b9815d5030edf77d2ed573922f7a0b8f8bb81a1c100"},
@@ -794,10 +756,6 @@ six = [
 ]
 sklearn = [
     {file = "sklearn-0.0.tar.gz", hash = "sha256:e23001573aa194b834122d2b9562459bf5ae494a2d59ca6b8aa22c85a44c0e31"},
-]
-soupsieve = [
-    {file = "soupsieve-2.3.1-py3-none-any.whl", hash = "sha256:1a3cca2617c6b38c0343ed661b1fa5de5637f257d4fe22bd9f1338010a1efefb"},
-    {file = "soupsieve-2.3.1.tar.gz", hash = "sha256:b8d49b1cd4f037c7082a9683dfa1801aa2597fb11c3a1155b7a5b94829b4f1f9"},
 ]
 text-unidecode = [
     {file = "text-unidecode-1.3.tar.gz", hash = "sha256:bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93"},

@@ -39,6 +39,10 @@ then
 
 - Sphinx documentation [here](https://github.com/ChloeCarayon/Sentiment_analyser_app/blob/master/docs/build/html/index.html)
 
+- generate requirements.txt
+``` poetry export --without-hashes -f requirements.txt --output requirements.txt ```
+
+
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
 
 
@@ -47,3 +51,11 @@ then
 ``` 
 make run
 ```
+
+### Dockerization 
+
+- dockerize
+``` docker build -t flask_app_project .  ```
+
+- run docker image 
+``` docker run -p 5000:5000 ImageID ```

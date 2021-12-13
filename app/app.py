@@ -2,11 +2,11 @@ import time
 from flask import Flask, render_template, request, jsonify, g
 from src.models.predict_model import predict
 from src.utils import directory_path, load_pickle
-
+import os
 
 app = Flask(__name__, template_folder='templates')
 model_type = "linearsvc"
-path = f"{directory_path}models/{model_type}/{model_type}"
+path = f"./{model_type}"
 model = load_pickle(path)
 
 @app.route('/')
@@ -56,7 +56,7 @@ def after_request(response):
     g.request_time = diff
     return response
 
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port="5000", debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True,host='0.0.0.0',port=port)
 
