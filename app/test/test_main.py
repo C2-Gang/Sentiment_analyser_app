@@ -129,6 +129,11 @@ class TestApp(unittest.TestCase):
         expected_result = {'text': text, 'sentiment': 'neutral'}
         assert ast.literal_eval(response.data.decode("utf-8")) == expected_result
 
+    '''def test_html(self):
+        result = self.client.get('/handle?piecetext=heard+there+was+direct+line+narendra+modi+which+can+accessed+any+average+gujju+this+true')
+
+        self.assertEqual(result.data.getId("piecetext", b"heard there was direct line narendra modi which can accessed any average gujju this true"))
+    '''
 
     def test_request_time(self):
         """This function calculate if the average response time of the site is below 100 ms per request.
