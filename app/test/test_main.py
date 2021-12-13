@@ -1,10 +1,9 @@
 import unittest
 from src.data.make_dataset import get_raw_kaggle
-from src.utils import directory_path, unzip_file
+from src.utils import directory_path
 from src.features.build_features import clean_text, join_words_processing, preprocessing, clean_stopwords
 from flask import g
 from app import app
-import json
 from flask import jsonify
 
 class TestML(unittest.TestCase):

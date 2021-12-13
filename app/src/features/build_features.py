@@ -3,7 +3,7 @@ from nltk.corpus import stopwords
 from nltk import word_tokenize
 nltk.download("stopwords")
 import pandas as pd
-from src.utils import directory_path,dump_pickle
+from src.utils import directory_path
 import re
 import numpy as np
 from src.models.vocabulary import DIC_VOCABULARY
