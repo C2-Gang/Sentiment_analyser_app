@@ -10,6 +10,26 @@ In order to run it, please install and configure poetry.
 ## Getting Start
 ---
 
+Basic Python Flask app in Docker which do sentiment analysis.
+
+### Containarization 
+
+- build application
+``` 
+docker build -t flask_app_project .  
+```
+
+- run docker image 
+``` 
+docker run -p 5000:5000 ImageID 
+```
+work on flask app 
+go to the root:
+``` http://localhost:5000/ ```
+
+
+### General
+
 - We use poetry for our environment. 
 One can use the already build environment OR re-install it:
 ``` 
@@ -35,12 +55,16 @@ make run_ml
 - test project 
 ``` cd app ```
 then 
-``` poetry run  python -m unittest  ```
+```
+poetry run  python -m unittest  
+```
 
 - Sphinx documentation [here](https://github.com/ChloeCarayon/Sentiment_analyser_app/blob/master/docs/build/html/index.html)
 
 - generate requirements.txt
-``` poetry export --without-hashes -f requirements.txt --output requirements.txt ```
+``` 
+poetry export --without-hashes -f requirements.txt --output requirements.txt 
+```
 
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
@@ -51,11 +75,3 @@ then
 ``` 
 make run
 ```
-
-### Dockerization 
-
-- dockerize
-``` docker build -t flask_app_project .  ```
-
-- run docker image 
-``` docker run -p 5000:5000 ImageID ```
