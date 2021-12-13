@@ -1,0 +1,37 @@
+body {
+    align-items: center;
+    background-color: #303245;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    }
+
+.result {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.submit {
+    margin-top: 30px;
+    height: 50px;
+    width: 100%;
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    color: #eee;
+    font-size: 18px;
+    height: 42%;
+    outline: 0;
+    padding: 5px 20px 5;
+    width: 100%;
+
+}
+
+
+}
+
+    

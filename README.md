@@ -10,6 +10,26 @@ In order to run it, please install and configure poetry.
 ## Getting Start
 ---
 
+Basic Python Flask app in Docker which do sentiment analysis.
+
+### Containarization 
+
+- build application
+``` 
+docker build -t flask_app_project .  
+```
+
+- run docker image 
+``` 
+docker run -p 5000:5000 ImageID 
+```
+work on flask app 
+go to the root:
+``` http://localhost:5000/ ```
+
+
+### General
+
 - We use poetry for our environment. 
 One can use the already build environment OR re-install it:
 ``` 
@@ -23,16 +43,35 @@ if issues, delete poetry.lock and re run the command above.
 make check
 ```
 
-- We work in agile method and using jira.
-One can find our Kanban table at 
-https://cecilespatz.atlassian.net/jira/software/projects/DEP1/boards/1/roadmap?selectedIssue=DEP1-1 
+- Jira as project management tool test: 
+https://cecilespatz.atlassian.net/jira/software/projects/DEP1/boards/1
 
 ###  Classical ML project
 - Run project
 ``` 
-make run
+make run_ml
+```
+
+- test project 
+``` cd app ```
+then 
+```
+poetry run  python -m unittest  
 ```
 
 - Sphinx documentation [here](https://github.com/ChloeCarayon/Sentiment_analyser_app/blob/master/docs/build/html/index.html)
 
+- generate requirements.txt
+``` 
+poetry export --without-hashes -f requirements.txt --output requirements.txt 
+```
+
+
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+
+### Flask interface
+- Run project
+``` 
+make run
+```
