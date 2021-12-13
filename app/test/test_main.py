@@ -4,8 +4,8 @@ from src.utils import directory_path, unzip_file
 from src.features.build_features import clean_text, join_words_processing, preprocessing, clean_stopwords
 from flask import g
 from app import app
-import json
-from flask import jsonify
+import ast
+
 
 class TestML(unittest.TestCase):
     def test_make_dataset(self):
@@ -105,44 +105,37 @@ class TestApp(unittest.TestCase):
         html = response.get_data(as_text=True)
         assert 'name="piecetext"' in html
 
-    def test_form_user(self):
+    def test_text_sentiment(self):
         """This function test if the site output is correct (Negative, Neutral or Positive): a test that sends a GET request to the website
         and confirms that the website returns the correct answer.
 
         """
-        response = self.client.get('/handle', data={
-            'piecetext': '',
-        }, follow_redirects=True)
-        error = "error null string."
-        #assert self.assertEqual(response.data, json.dumps({"sentiment": error}))
-        assert self.assertEqual(response.data, jsonify(error))
 
-        response = self.client.get('/handle', data={
-            'piecetext': 'heard there was direct line narendra modi which can accessed any average gujju this true',
-        }, follow_redirects=True)
-        sentiment = "positive"
-        #assert self.assertEqual(response.data, json.dumps({"sentiment": sentiment}))
-        assert self.assertEqual(response.data, jsonify(sentiment))
+        response = self.client.get('/handle?piecetext=')
+        expected_result = {'text': '', 'sentiment': 'error null string.'}
+        assert ast.literal_eval(response.data.decode("utf-8")) == expected_result
 
-        response = self.client.get('/handle', data={
-            'piecetext': 'geez why every single post this thread downvoted',
-        }, follow_redirects=True)
-        sentiment = "negative"
-        #assert self.assertEqual(response.data, json.dumps({"sentiment": sentiment}))
-        assert self.assertEqual(response.data, jsonify(sentiment))
+        text = 'heard there was direct line narendra modi which can accessed any average gujju this true'
+        response = self.client.get('/handle?piecetext=heard+there+was+direct+line+narendra+modi+which+can+accessed+any+average+gujju+this+true')
+        expected_result = {'text': text, 'sentiment': 'positive'}
+        assert ast.literal_eval(response.data.decode("utf-8")) == expected_result
 
-        response = self.client.get('/handle', data={
-            'piecetext': 'can congress eliminate namo and blame advani',
-        }, follow_redirects=True)
-        sentiment = "neutral"
-        #assert self.assertEqual(response.data, json.dumps({"sentiment": sentiment}))
-        assert self.assertEqual(response.data, jsonify(sentiment))
+        text = 'geez why every single post this thread downvoted'
+        response = self.client.get(f'/handle?piecetext=geez+why+every+single+post+this+thread+downvoted')
+        expected_result = {'text': text, 'sentiment': 'negative'}
+        assert ast.literal_eval(response.data.decode("utf-8")) == expected_result
+
+        text = 'can congress eliminate namo and blame advani'
+        response = self.client.get(f'/handle?piecetext=can+congress+eliminate+namo+and+blame+advani')
+        expected_result = {'text': text, 'sentiment': 'neutral'}
+        assert ast.literal_eval(response.data.decode("utf-8")) == expected_result
+
 
     def test_request_time(self):
         """This function calculate if the average response time of the site is below 100 ms per request.
 
         """
-        self.test_form_user()
+        self.test_text_sentiment()
         assert g.request_time <= 100
         print(g.request_time)
 
@@ -153,7 +146,7 @@ class TestApp(unittest.TestCase):
         """
         request_time = []
         for i in range(1000):
-            self.test_form_user()
+            self.test_text_sentiment()
             request_time.append(g.request_time)
         average = sum(request_time) / len(request_time)
         assert average <= 100
