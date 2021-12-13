@@ -8,8 +8,7 @@ import json
 
 app = Flask(__name__, template_folder='templates')
 model_type = "linearsvc"
-#path = f"./{model_type}"
-path = f"./models/{model_type}/{model_type}"
+path = f"{directory_path}models/{model_type}/{model_type}"
 
 model = load_pickle(path)
 

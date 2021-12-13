@@ -3,7 +3,17 @@ import zipfile
 import pickle
 import json
 
-directory_path = os.path.realpath(__file__).replace("app/src/utils.py", "")
+
+def get_directory():
+    directory_path = os.path.realpath(__file__).replace("app/src/utils.py", "")
+    if directory_path == "":
+        return "./"
+    else:
+        return directory_path
+
+
+directory_path = get_directory()
+
 
 def unzip_file(old_path: str, new_path: str):
     """This function unzips a file.
@@ -62,3 +72,4 @@ def load_pickle(path: str):
     with open(f"{path}.pickle", 'rb') as handle:
         object = pickle.load(handle)
     return object
+
