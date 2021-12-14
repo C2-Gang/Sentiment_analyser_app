@@ -12,6 +12,12 @@ In order to run it, please install and configure poetry.
 
 Basic Python Flask app in Docker which do sentiment analysis.
 
+### Dataset 
+Dataset:
+https://www.kaggle.com/cosmos98/twitter-and-reddit-sentimental-analysis-dataset
+
+Please run ``` make run_ml ```  to generate the dataset using Kaggle Api and process it.
+
 ### Containarization 
 
 - build application
@@ -65,10 +71,6 @@ poetry run  python -m unittest
 ``` 
 poetry export --without-hashes -f requirements.txt --output requirements.txt 
 ```
-
-
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
-
 
 ### Flask interface
 - Run project

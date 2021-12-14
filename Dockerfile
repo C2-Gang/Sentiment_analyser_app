@@ -1,9 +1,6 @@
 FROM python:3.6
 
 COPY /app/. /app
-COPY app/app.py /app
-COPY app/__main__.py /app
-COPY app/__init__.py /app
 COPY /models/. /app/models
 COPY requirements.txt /app
 WORKDIR /app
